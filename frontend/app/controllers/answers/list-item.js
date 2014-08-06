@@ -35,7 +35,7 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
 
     accept: function() {
       var answer = this.get('model');
-      var question = answer.get('question');
+      var question = answer.get('question.content');
 
       // this is not setting acceptedAnswer properly
       question.set('acceptedAnswer', answer);
