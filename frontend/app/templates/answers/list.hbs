@@ -2,7 +2,11 @@
   {{#each}}
     <div class="answer" {{bind-attr id=itemId}}>
       <div class="answer__author">
-        <h4>@{{user.username}} said:</h4>
+        {{#if isAcceptedAnswer }}
+          <h4>Accepted Answer - @{{user.username}} said:</h4>
+        {{else}}
+          <h4>@{{user.username}} said:</h4>
+        {{/if}}
       </div>
 
       {{#if isEditing}}
