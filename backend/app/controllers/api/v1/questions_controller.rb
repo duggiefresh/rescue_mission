@@ -37,7 +37,7 @@ module API::V1
     private
 
     def question_params
-      params.require(:question).permit(:body, :title)
+      params.require(:question).permit(:body, :title, :accepted_answer_id)
     end
   end
 end

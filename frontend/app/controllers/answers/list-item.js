@@ -36,12 +36,14 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
     accept: function() {
       var answer = this.get('model');
       var question = answer.get('question.content');
+      var _this = this;
 
-      // this is not setting acceptedAnswer properly
       question.set('acceptedAnswer', answer);
 
       question.save().then(function() {
-        alert('saved!');
+        _this.wuphf.success('Answer accepted!', 3000);
+      }, function(){
+        _this.wuphf.danger('Something went wrong. Please try again.', 3000);
       });
     }
   }
