@@ -31,6 +31,20 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
       }, function() {
         _this.wuphf.danger('Something went wrong. Please try again.', 3000);
       });
+    },
+
+    accept: function() {
+      var answer = this.get('model');
+      var question = answer.get('question');
+
+      // this is not setting acceptedAnswer properly
+      question.set('acceptedAnswer', answer);
+
+      // then calling question.save() blows up with
+      // Uncaught TypeError: undefined is not a function
+      question.save().then(function() {
+        alert('saved!');
+      });
     }
   }
 });
