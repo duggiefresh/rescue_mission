@@ -23,9 +23,9 @@ describe AnswerSerializer do
 
   describe "#is_accepted_answer" do
     it "is true when answer is the question's accepted answer" do
-      question = FactoryGirl.create(:question, :with_accepted_answer)
-      answer = question.accepted_answer
-      answer.question = question
+      answer = FactoryGirl.build_stubbed(:answer)
+      question = answer.question
+      question.accepted_answer = answer
 
       serializer = AnswerSerializer.new(answer)
 
