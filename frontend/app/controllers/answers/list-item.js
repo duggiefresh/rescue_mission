@@ -40,8 +40,6 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
       // this is not setting acceptedAnswer properly
       question.set('acceptedAnswer', answer);
 
-      // then calling question.save() blows up with
-      // Uncaught TypeError: undefined is not a function
       question.save().then(function() {
         alert('saved!');
       });
