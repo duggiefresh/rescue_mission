@@ -7,6 +7,7 @@ class QuestionSerializer < ActiveModel::Serializer
     :title
 
   has_one :user
+  has_one :accepted_answer
 
   has_many :answers
   has_many :comments

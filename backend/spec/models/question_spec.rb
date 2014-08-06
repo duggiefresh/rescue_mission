@@ -4,6 +4,7 @@ describe Question do
   describe "associations" do
     it { should belong_to :user }
     it { should have_many(:answers).dependent(:destroy) }
+    it { should belong_to(:accepted_answer).class_name('Answer') }
     it { should have_many(:comments).dependent(:destroy) }
   end
 

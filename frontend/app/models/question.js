@@ -4,6 +4,7 @@ import Commentable from './commentable';
 export default Commentable.extend({
   user: DS.belongsTo('user', { async: true }),
   answers: DS.hasMany('answer', { async: true }),
+  acceptedAnswer: DS.belongsTo('answer', { async: true }),
 
   body: DS.attr('string'),
   canEdit: DS.attr('boolean', { defaultValue: false }),
