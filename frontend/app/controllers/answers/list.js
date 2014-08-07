@@ -6,4 +6,8 @@ export default Ember.ArrayController.extend({
   unselectedAnswers: function() {
     return this.get('model').filterProperty('isAcceptedAnswer', false);
   }.property('model.@each.isAcceptedAnswer'),
+
+  acceptedAnswer: function() {
+    return this.get('model').findBy('isAcceptedAnswer', true);
+  }.property('model.@each.isAcceptedAnswer')
 });
