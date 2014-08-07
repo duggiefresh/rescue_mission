@@ -1,12 +1,9 @@
 <div class="answers-list">
-  {{#each}}
+
+  {{#each unselectedAnswers}}
     <div class="answer" {{bind-attr id=itemId}}>
       <div class="answer__author">
-        {{#if isAcceptedAnswer }}
-          <h4>Accepted Answer - @{{user.username}} said:</h4>
-        {{else}}
-          <h4>@{{user.username}} said:</h4>
-        {{/if}}
+        <h4>@{{user.username}} said:</h4>
       </div>
 
       {{#if isEditing}}
