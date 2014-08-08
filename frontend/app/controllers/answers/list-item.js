@@ -14,6 +14,17 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
     }
   },
 
+  canBeAccepted: function() {
+    var alreadyAccepted = this.get('isAcceptedAnswer');
+    var userWroteQuestion = this.get('model.content._data.question.canEdit');
+
+    if (!alreadyAccepted && userWroteQuestion) {
+      return true;
+    } else {
+      return false;
+    }
+  }.property('isAcceptedAnswer', 'question'),
+
   actions: {
     edit: function() {
       this.set('isEditing', true);
@@ -35,17 +46,20 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
       });
     },
 
-    accept: function() {
+    accept: function(question) {
       var answer = this.get('model');
-      var question = answer.get('question.content');
       var _this = this;
 
-      question.set('acceptedAnswer', answer);
+      answer.get('question').then(function(question){
+        question.set('acceptedAnswer', answer);
 
-      question.save().then(function() {
-        _this.wuphf.success('Answer accepted!', 3000);
-      }, function(){
-        _this.wuphf.danger('Something went wrong. Please try again.', 3000);
+        question.save().then(function() {
+          alert("question was saved");
+          _this.wuphf.success('Answer accepted!', 3000);
+        }, function(){
+          alert("question was not saved");
+          _this.wuphf.danger('Something went wrong. Please try again.', 3000);
+        });
       });
     },
 

@@ -1,0 +1,58 @@
+<div class="answer" {{bind-attr id=itemId}}>
+  {{#if isAcceptedAnswer}}
+    <div class="answer__author">
+      <h4>Accepted Answer - @{{user.username}} said:</h4>
+    </div>
+  {{else}}
+    <div class="answer__author">
+      <h4>@{{user.username}} said:</h4>
+    </div>
+  {{/if}}
+
+  {{#if isEditing}}
+    <div class="answer-form">
+      {{#form-for controller action='save'}}
+        <div class="row">
+          <div class="small-12 columns">
+            {{input body as="text"}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="small-6 columns">
+            {{submit 'Save' class='button success expand'}}
+          </div>
+          <div class="small-6 columns">
+            <button class="button secondary expand "{{action 'cancel'}}>Cancel</button>
+          </div>
+        </div>
+      {{/form-for}}
+    </div>
+  {{else}}
+    <div class="answer__body">
+      {{format-markdown body}}
+    </div>
+
+    <ul class="answer-actions button-group">
+      {{#if canEdit}}
+        <li><a class="answer-actions__edit button secondary tiny" href="#" {{action 'edit'}}>Edit</a></li>
+      {{/if}}
+
+      {{#if canBeAccepted }}
+        <li><a class="answer-actions__accept button secondary tiny" href="#" {{action 'accept' question}}>Accept Answer</a></li>
+      {{/if}}
+    </ul>
+  {{/if}}
+
+  {{render 'comments.list' comments}}
+
+  {{#if session.isAuthenticated}}
+    <a class="add-comment button secondary tiny"
+      href="#" {{action 'addComment'}}>
+      Comment
+    </a>
+  {{/if}}
+
+  {{#if isCommenting}}
+    {{render 'comments.new'}}
+  {{/if}}
+</div>
