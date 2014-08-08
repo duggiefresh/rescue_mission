@@ -1,10 +1,8 @@
 import DS from 'ember-data';
+import Commentable from './commentable';
 
-export default DS.Model.extend({
-  question: DS.belongsTo('question', {
-    async: true,
-    inverse: 'answers'
-  }),
+export default Commentable.extend({
+  question: DS.belongsTo('question', { async: true, inverse: 'answers' }),
   user: DS.belongsTo('user', { async: true }),
 
   body: DS.attr('string'),
