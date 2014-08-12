@@ -46,19 +46,21 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
       });
     },
 
-    accept: function(question) {
-      var answer = this.get('model');
+    accept: function() {
+      var answer = this.get('model.content');
       var _this = this;
 
-      answer.get('question').then(function(question){
-        question.set('acceptedAnswer', answer);
+      answer.get('question').then(function(question) {
+        question.get('acceptedAnswer').then(function(acceptedAnswer) {
+          question.set('acceptedAnswer', answer);
 
-        question.save().then(function() {
-          alert("question was saved");
-          _this.wuphf.success('Answer accepted!', 3000);
-        }, function(){
-          alert("question was not saved");
-          _this.wuphf.danger('Something went wrong. Please try again.', 3000);
+          question.save().then(function() {
+            acceptedAnswer.set('isAcceptedAnswer', false);
+            answer.set('isAcceptedAnswer', true);
+            _this.wuphf.success('Answer accepted!', 3000);
+          }, function(){
+            _this.wuphf.danger('Something went wrong. Please try again.', 3000);
+          });
         });
       });
     },
